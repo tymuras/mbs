@@ -28,7 +28,7 @@ class PostsController extends AppController {
 	
 	public function index() {
         
-		$this->test();
+		//$this->test();
 		
 		$this->set('posts', $this->Post->find('all'));
 		$categories = ClassRegistry::init('Category')->getList();		

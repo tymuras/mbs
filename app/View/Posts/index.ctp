@@ -5,7 +5,9 @@
 <table>
     <tr>
         <th>Id</th>
-        <th>Title</th>
+        <th>Name</th>
+		<th>Mail</th>
+		<th>Categories</th>
         <th>Actions</th>
         <th>Created</th>
     </tr>
@@ -18,6 +20,15 @@
         <td>
             <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id'])); ?>
         </td>
+		
+		<td>
+            <?php echo $this->Html->link($post['Post']['body'], array('action' => 'view', $post['Post']['id'])); ?>
+        </td>
+		
+		<td>
+            <?php echo $this->Html->link($post['Post']['categories'], array('action' => 'view', $post['Post']['id'])); ?>
+        </td>
+		
         <td>
             <?php echo $this->Form->postLink(
                 'Delete',
