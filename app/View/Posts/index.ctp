@@ -1,7 +1,7 @@
 <!-- File: /app/View/Posts/index.ctp -->
 
-<h1>Blog posts</h1>
-<p><?php echo $this->Html->link('Add Post', array('action' => 'add')); ?></p>
+<h1>Prenumeratos anketos</h1>
+<p><?php echo $this->Html->link('Prideti anketa', array('action' => 'add')); ?></p>
 <table>
     <tr>
         <th>Id</th>

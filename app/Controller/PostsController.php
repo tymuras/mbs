@@ -10,12 +10,12 @@ class PostsController extends AppController {
 
     public function view($id) {
         if (!$id) {
-            throw new NotFoundException(__('Invalid post'));
+            throw new NotFoundException(__('Sistemine klaida'));
         }
 
         $post = $this->Post->findById($id);
         if (!$post) {
-            throw new NotFoundException(__('Invalid post'));
+            throw new NotFoundException(__('Sistemine klaida'));
         }
         $this->set('post', $post);
     }
@@ -31,5 +31,30 @@ class PostsController extends AppController {
             }
         }
     }
+	
+	public function edit($id = null) {
+		if (!$id) {
+			throw new NotFoundException(__('Sistemine klaida'));
+		}
+
+		$post = $this->Post->findById($id);
+		if (!$post) {
+			throw new NotFoundException(__('Sistemine klaida'));
+		}
+
+		if ($this->request->is('post') || $this->request->is('put')) {
+			$this->Post->id = $id;
+			if ($this->Post->save($this->request->data)) {
+				$this->Session->setFlash(__('Duomenys atnaujinti.'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('Klaida.'));
+			}
+		}
+
+		if (!$this->request->data) {
+			$this->request->data = $post;
+		}
+	}
 }
 ?>
