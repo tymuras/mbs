@@ -9,4 +9,12 @@ class Post extends AppModel {
             'rule' => 'notEmpty'
         )
     );
+	
+	public function getCategories()
+	{
+		echo '<pre>';
+		var_export( 1);
+		echo '</pre>';
+		die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+	}
 }

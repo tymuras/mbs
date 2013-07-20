@@ -4,8 +4,34 @@ class PostsController extends AppController {
     public $helpers = array('Html', 'Form', 'Session');
     public $components = array('Session');
 
-    public function index() {
-        $this->set('posts', $this->Post->find('all'));
+    public function test( )
+	{
+		$categories = ClassRegistry::init('Category')->getList();
+		echo '<pre>';
+		var_export( $categories);
+		echo '</pre>';
+		die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+		/*
+		//$aCategories = Configure::read('DATABASE_CONFIG');
+		
+		print_r(Configure::read('aaa'));
+		die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+		
+		echo '<pre>';
+		var_export( $aCategories );
+		echo '</pre>';
+		die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+		 * $this->set('categories', ClassRegistry::init('Category')->getList());		
+		 */
+		
+	}
+	
+	public function index() {
+        
+		$this->test();
+		
+		$this->set('posts', $this->Post->find('all'));
+		$categories = ClassRegistry::init('Category')->getList();		
     }
 
     public function view($id) {
@@ -21,7 +47,10 @@ class PostsController extends AppController {
     }
 
     public function add() {
-        if ($this->request->is('post')) {
+        
+		$this->set('categories', ClassRegistry::init('Category')->getList());				
+		
+		if ($this->request->is('post')) {
             $this->Post->create();
             if ($this->Post->save($this->request->data)) {
                 $this->Session->setFlash(__('Your post has been saved.'));
@@ -33,6 +62,9 @@ class PostsController extends AppController {
     }
 	
 	public function edit($id = null) {
+		
+		$this->set('categories', ClassRegistry::init('Category')->getList());				
+		
 		if (!$id) {
 			throw new NotFoundException(__('Sistemine klaida'));
 		}
