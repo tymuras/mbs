@@ -1,9 +1,11 @@
 <!-- File: /app/View/Posts/index.ctp -->
-
+<script type="text/javascript">
+var index_url = "<?php echo $this->Html->url(array( 'controller' => 'Posts',  'action' => 'index')); ?>";
+</script>
 <h1>List of subscribers</h1>
 <br />
 <p><?php echo $this->Html->link('Add subscriber', array('action' => 'add')); ?></p>
-<?php echo $this->Form->input('sorting', array('type'=>'select', 'label' => false,'style'=>'float:right',  'options'=> $sorting, 'empty' => '(sorting options)'));?>
+<?php echo $this->Form->input('sorting', array('id'=> 'sort','type'=>'select', 'value'=>$active_sorting_mode, 'label' => false,'style'=>'float:right',  'options'=> $sorting, 'empty' => '(sorting options)'));?>
 
 <table>
     <tr>

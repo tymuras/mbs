@@ -26,10 +26,11 @@ class PostsController extends AppController {
 		
 	}
 	
-	public function index() {
+	public function index($sort_mode = '') {
         		
 		$this->set('posts', $this->Post->find('all'));
 		$this->set('sorting', $this->Post->getSortingModes());
+		$this->set('active_sorting_mode', $sort_mode);
 		$categories = ClassRegistry::init('Category')->getList();		
     }
 

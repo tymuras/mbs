@@ -9,7 +9,8 @@ class Post extends AppModel {
             'rule' => array('notEmpty', 'email')
         ),
 		'categories' => array(
-            'rule' => 'notEmpty'
+              'rule' => array('multiple', array('min' => 1)), 
+			'allowEmpty' => false
         ),
     );
 	

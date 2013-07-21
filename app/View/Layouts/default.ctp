@@ -31,7 +31,8 @@ $cakeDescription = __d('cake_dev', 'Subscription manager');
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css('cake.generic');
-
+		echo $this->Html->script('jquery.min');
+		echo $this->Html->script('main');
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
@@ -40,7 +41,7 @@ $cakeDescription = __d('cake_dev', 'Subscription manager');
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
+			<h1><?php echo $cakeDescription; ?></h1>
 		</div>
 		<div id="content">
 
