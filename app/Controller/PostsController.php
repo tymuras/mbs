@@ -47,7 +47,8 @@ class PostsController extends AppController {
 
     public function add() {
         
-		$this->set('categories', ClassRegistry::init('Category')->getList());				
+		$categories = ClassRegistry::init('Category')->getList('element_format');
+		$this->set('categories',$categories );				
 		
 		if ($this->request->is('post')) {
             $this->Post->create();
@@ -62,14 +63,8 @@ class PostsController extends AppController {
 	
 	public function edit($id = null) {
 		
-		$categories = ClassRegistry::init('Category')->getList();
-		foreach ( $categories as $k=>$val ) {
-			$categoriesFormated[$val['id']] = $val['title'];			
-		}
-		
-		
-		
-		$this->set('categories',$categoriesFormated );				
+		$categories = ClassRegistry::init('Category')->getList('element_format');
+		$this->set('categories',$categories );				
 		
 		if (!$id) {
 			throw new NotFoundException(__('Sistemine klaida'));
@@ -86,7 +81,7 @@ class PostsController extends AppController {
 				$this->Session->setFlash(__('Duomenys atnaujinti.'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('Klaida.'));
+				$this->Session->setFlash(__('Fill all fields!'));
 			}
 		}
 

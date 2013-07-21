@@ -3,7 +3,7 @@
 class Category extends AppModel {
      public $useTable = false; 
 	 
-	 public function getList()
+	 public function getList($sFormat = '')
 	 {
 		  $categories = array(
 			array('id'  => 1, 'title' => 'Food'),
@@ -11,6 +11,14 @@ class Category extends AppModel {
 			array('id'  => 3, 'title' => 'Flowers'),			 
 			array('id'  => 4, 'title' => 'Pets')			 
 		 );
+		  
+		
+		  if($sFormat == 'element_format') {
+			  foreach ( $categories as $val ) {
+					$categoriesFormated[$val['id']] = $val['title'];			
+				}
+			return $categoriesFormated;					
+		  }
 		  
 		return $categories;  
 	 }

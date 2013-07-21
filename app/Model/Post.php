@@ -6,8 +6,11 @@ class Post extends AppModel {
             'rule' => 'notEmpty'
         ),
         'body' => array(
+            'rule' => array('notEmpty', 'email')
+        ),
+		'categories' => array(
             'rule' => 'notEmpty'
-        )
+        ),
     );
 	
 	private $_sorting = array(
