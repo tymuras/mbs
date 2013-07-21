@@ -27,10 +27,9 @@ class PostsController extends AppController {
 	}
 	
 	public function index() {
-        
-		//$this->test();
-		
+        		
 		$this->set('posts', $this->Post->find('all'));
+		$this->set('sorting', $this->Post->getSortingModes());
 		$categories = ClassRegistry::init('Category')->getList();		
     }
 
@@ -63,7 +62,14 @@ class PostsController extends AppController {
 	
 	public function edit($id = null) {
 		
-		$this->set('categories', ClassRegistry::init('Category')->getList());				
+		$categories = ClassRegistry::init('Category')->getList();
+		foreach ( $categories as $k=>$val ) {
+			$categoriesFormated[$val['id']] = $val['title'];			
+		}
+		
+		
+		
+		$this->set('categories',$categoriesFormated );				
 		
 		if (!$id) {
 			throw new NotFoundException(__('Sistemine klaida'));

@@ -17,7 +17,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = __d('cake_dev', 'Prenumerata');
+$cakeDescription = __d('cake_dev', 'Subscription manager');
 ?>
 <!DOCTYPE html>
 <html>

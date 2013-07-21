@@ -1,7 +1,10 @@
 <!-- File: /app/View/Posts/index.ctp -->
 
-<h1>Prenumeratos anketos</h1>
-<p><?php echo $this->Html->link('Prideti anketa', array('action' => 'add')); ?></p>
+<h1>List of subscribers</h1>
+<br />
+<p><?php echo $this->Html->link('Add subscriber', array('action' => 'add')); ?></p>
+<?php echo $this->Form->input('sorting', array('type'=>'select', 'label' => false,'style'=>'float:right',  'options'=> $sorting, 'empty' => '(sorting options)'));?>
+
 <table>
     <tr>
         <th>Id</th>

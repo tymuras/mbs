@@ -8,7 +8,8 @@ class Category extends AppModel {
 		  $categories = array(
 			array('id'  => 1, 'title' => 'Food'),
 			array('id'  => 2, 'title' => 'Sport'),
-			array('id'  => 2, 'title' => 'Flowers')			 
+			array('id'  => 3, 'title' => 'Flowers'),			 
+			array('id'  => 4, 'title' => 'Pets')			 
 		 );
 		  
 		return $categories;  

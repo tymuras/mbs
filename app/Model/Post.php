@@ -9,4 +9,15 @@ class Post extends AppModel {
             'rule' => 'notEmpty'
         )
     );
+	
+	private $_sorting = array(
+		'mail'=> 'By email',
+		'name'=> 'By email',
+		'date'=> 'By Date'	
+	);
+	
+	public function getSortingModes()
+	{
+		return $this->_sorting;
+	}
 }
