@@ -3,14 +3,40 @@
 class PostsController extends AppController {
     public $helpers = array('Html', 'Form', 'Session');
     public $components = array('Session');
+	public $uses  = array('MyModel');
 
-    public function test( )
+    public function test()
 	{
-		$categories = ClassRegistry::init('Category')->getList();
+		// Get all messages from 'Some Person'
+		$messages = $this->MyModel->find('all', array(
+			'conditions' => array('name' => 'Some Person'),
+		));
+		
+echo '<pre>';
+var_export( $messages );
+echo '</pre>';
+echo '<hr>';
+		
+		
+		
+		$aRes = $this->MyModel->save(array(
+			 'name' => 'Some Persons',
+			 'mail' => 'tomas@greitai.lt',
+		));
+		
+echo '<pre>';
+var_export( $aRes );
+echo '</pre>';
+die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+		
 		echo '<pre>';
-		var_export( $categories);
+		var_export( $messages);
 		echo '</pre>';
 		die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+		
+		
+		$categories = ClassRegistry::init('Category')->getList();
+		
 		/*
 		//$aCategories = Configure::read('DATABASE_CONFIG');
 		
