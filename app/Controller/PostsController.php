@@ -3,11 +3,50 @@
 class PostsController extends AppController {
     public $helpers = array('Html', 'Form', 'Session');
     public $components = array('Session');
-	public $uses  = array('MyModel');
+	public $uses  = array('MyModel', 'Post');
 
     public function test()
 	{
-		// Get all messages from 'Some Person'
+		$aRes = $this->MyModel->save(array(
+			 'name' => 'Some Persons'.rand(),
+			 'mail' => 'tomas@greitai.lt',
+			 'categories' => '1,2,3',
+			 'atime' => '2012-05-02'
+		));
+		
+		
+$messages = $this->MyModel->find('all', array(
+			'conditions' => array('name' => 'Some Person'),
+		));		
+echo '<pre>';
+var_export( $messages );
+echo '</pre>';
+
+		
+		
+		$this->MyModel->delete(42);
+		
+		die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+		
+		die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );	
+		
+	App::import('ConnectionManager');
+	$abc = ConnectionManager::getDataSource('farAwaySource');
+	$data1 = $abc->find('all');
+	echo '<pre>';
+	var_export( $data1);
+	echo '</pre>';
+	die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+		
+		
+	$aRes = $this->MyModel->find('count');
+	echo '<pre>';
+	var_export( $aRes);
+	echo '</pre>';
+	die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+
+
+// Get all messages from 'Some Person'
 		$messages = $this->MyModel->find('all', array(
 			'conditions' => array('name' => 'Some Person'),
 		));
@@ -16,13 +55,18 @@ echo '<pre>';
 var_export( $messages );
 echo '</pre>';
 echo '<hr>';
-		
+	
 		
 		
 		$aRes = $this->MyModel->save(array(
-			 'name' => 'Some Persons',
+			 'name' => 'Some Persons'.rand(),
 			 'mail' => 'tomas@greitai.lt',
+			 'categories' => '1,2,3',
+			 'atime' => '2012-05-02'
 		));
+		
+		
+		
 		
 echo '<pre>';
 var_export( $aRes );
@@ -53,7 +97,9 @@ die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
 	}
 	
 	public function index($sort_mode = '') {
-        		
+		
+		$categories = ClassRegistry::init('Category')->getList( 'element_format') ;
+		$this->set('categories', $categories);		
 		$this->set('posts', $this->Post->find('all'));
 		$this->set('sorting', $this->Post->getSortingModes());
 		$this->set('active_sorting_mode', $sort_mode);
@@ -117,13 +163,21 @@ die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
 		}
 	}
 	public function delete($id) {
+		
+		$categories = ClassRegistry::init('FarAwaySource');
+		$x = new FarAwaySource();
+		
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
 		}
 
 		if ($this->Post->delete($id)) {
+			
 			$this->Session->setFlash(__('The post with id: %s has been deleted.', $id));
 			$this->redirect(array('action' => 'index'));
+		}else
+		{
+			die( 'deleting failed ' . __FILE__ . ' ' . __LINE__ ); 
 		}
 	}
 }

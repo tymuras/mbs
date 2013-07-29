@@ -113,15 +113,18 @@ class FarAwaySource extends DataSource {
 		
 		
 		return $this->getFileData();
+		/*
 		//return array($model->alias => $aFileData);
-		
-		/**
          * Here we do the actual count as instructed by our calculate()
          * method above. We could either check the remote source or some
          * other way to get the record count. Here we'll simply return 1 so
          * ``update()`` and ``delete()`` will assume the record exists.
          */
-        
+        if ($queryData['fields'] === 'COUNT') {
+            return array(array(array('count' => 1)));
+        }
+		
+		
         /**
          * Now we get, decode and return the remote data.
          */
@@ -178,7 +181,7 @@ class FarAwaySource extends DataSource {
  */
     public function delete(Model $model, $id = null) {
         
-	 die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+	 die( '**********delete veikia **************' . __FILE__ . ' ' . __LINE__ );
 		
 		$json = $this->Http->get('http://example.com/api/remove.json', array(
             'id' => $id[$model->alias . '.id'],
@@ -191,16 +194,6 @@ class FarAwaySource extends DataSource {
         }
         return true;
     }
-	
-	public function query()	
-	{
-		die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
-		$aArgsList = func_get_args();
-		echo '<pre>';
-		print_r( $aArgsList );
-		echo '</pre>';
-		die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
-	}
 
 }
 ?>

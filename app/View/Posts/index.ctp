@@ -9,7 +9,6 @@ var index_url = "<?php echo $this->Html->url(array( 'controller' => 'Posts',  'a
 
 <table>
     <tr>
-        <th>Id</th>
         <th>Name</th>
 		<th>Mail</th>
 		<th>Categories</th>
@@ -21,17 +20,24 @@ var index_url = "<?php echo $this->Html->url(array( 'controller' => 'Posts',  'a
 
     <?php foreach ($posts as $post): ?>
     <tr>
-        <td><?php echo $post['Post']['id']; ?></td>
         <td>
-            <?php echo $this->Html->link($post['Post']['title'], array('action' => 'view', $post['Post']['id'])); ?>
+            <?php echo $post['Post']['name']; ?>
         </td>
 		
 		<td>
-            <?php echo $this->Html->link($post['Post']['body'], array('action' => 'view', $post['Post']['id'])); ?>
+            <?php echo $post['Post']['mail']; ?>
         </td>
 		
 		<td>
-            <?php echo $this->Html->link($post['Post']['categories'], array('action' => 'view', $post['Post']['id'])); ?>
+            <?php 
+				$category_ids = explode(',', $post['Post']['categories']); 
+				if (is_array($category_ids) && !empty($category_ids)) {
+					foreach ( $category_ids as $id) {
+						echo  $categories[$id];
+						echo '&nbsp;';
+					}					
+				}
+			?>
         </td>
 		
         <td>
@@ -43,7 +49,7 @@ var index_url = "<?php echo $this->Html->url(array( 'controller' => 'Posts',  'a
             <?php echo $this->Html->link('Edit', array('action' => 'edit', $post['Post']['id'])); ?>
         </td>
         <td>
-            <?php echo $post['Post']['created']; ?>
+            <?php echo $post['Post']['atime']; ?>
         </td>
     </tr>
     <?php endforeach; ?>

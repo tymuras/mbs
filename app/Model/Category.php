@@ -14,8 +14,9 @@ class Category extends AppModel {
 				}
 			return $categoriesFormated;					
 		  }
-		  
+		  		   		  
 		return $categories;  
 	 }
+	 	 
 }
 ?>
