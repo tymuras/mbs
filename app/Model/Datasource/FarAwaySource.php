@@ -37,6 +37,18 @@ class FarAwaySource extends DataSource {
             'type' => 'text',
             'null' => true,
         ),
+		
+		'categories' => array(
+            'type' => 'string',
+            'null' => true,
+            'length' => 32,
+        ),
+		
+		'atime' => array(
+            'type' => 'datetime',
+            'null' => true,
+        ),
+		
     );
 
 /**
@@ -94,10 +106,14 @@ class FarAwaySource extends DataSource {
  */
     public function read(Model $model, $queryData = array(), $recursive = null) {
         
-		 Configure::load('categories', 'default');
-		  $categories = Configure::read('categories');
 		
-		return array($model->alias => $categories);
+		if ($queryData['fields'] === 'COUNT') {
+            return array(array(array('count' => 1)));
+        }
+		
+		
+		return $this->getFileData();
+		//return array($model->alias => $aFileData);
 		
 		/**
          * Here we do the actual count as instructed by our calculate()
@@ -105,9 +121,7 @@ class FarAwaySource extends DataSource {
          * other way to get the record count. Here we'll simply return 1 so
          * ``update()`` and ``delete()`` will assume the record exists.
          */
-        if ($queryData['fields'] === 'COUNT') {
-            return array(array(array('count' => 1)));
-        }
+        
         /**
          * Now we get, decode and return the remote data.
          */
@@ -129,13 +143,7 @@ class FarAwaySource extends DataSource {
 		$aItem = array_combine ($fields, $values);
 		$aItem['id'] = crc32(implode($values, ''));		
 		$data = $this->getFileData();
-		
-		echo '<pre>';
-		var_export( $data );
-		echo '</pre>';
-		echo '<hr>';
-		
-		$data[] = $aItem;
+		$data[] = array('Post'=> $aItem);
 		return $this->saveFileData($data);
     }
 	
@@ -169,7 +177,10 @@ class FarAwaySource extends DataSource {
  * Implement the D in CRUD. Calls to ``Model::delete()`` arrive here.
  */
     public function delete(Model $model, $id = null) {
-        $json = $this->Http->get('http://example.com/api/remove.json', array(
+        
+	 die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+		
+		$json = $this->Http->get('http://example.com/api/remove.json', array(
             'id' => $id[$model->alias . '.id'],
             'apiKey' => $this->config['apiKey'],
         ));
@@ -180,6 +191,16 @@ class FarAwaySource extends DataSource {
         }
         return true;
     }
+	
+	public function query()	
+	{
+		die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+		$aArgsList = func_get_args();
+		echo '<pre>';
+		print_r( $aArgsList );
+		echo '</pre>';
+		die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+	}
 
 }
 ?>
