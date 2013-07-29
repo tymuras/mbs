@@ -24,7 +24,7 @@ echo '</pre>';
 
 		
 		
-		$this->MyModel->delete(42);
+		$this->MyModel->delete(-1107738900);
 		
 		die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
 		

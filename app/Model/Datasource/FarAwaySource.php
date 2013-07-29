@@ -180,8 +180,21 @@ class FarAwaySource extends DataSource {
  * Implement the D in CRUD. Calls to ``Model::delete()`` arrive here.
  */
     public function delete(Model $model, $id = null) {
-        
-	 die( '**********delete veikia **************' . __FILE__ . ' ' . __LINE__ );
+		
+	 	$data = $this->getFileData();
+		foreach ( $data as $nr => $item ) {
+			echo $item['Post']['id'].' -> '.var_export($id, true); echo '<hr>';
+			
+			if($item['Post']['id'] == $id[$model->alias.'.id']) {
+				unset($data[$nr]);				
+				break;
+			}
+		}
+		echo '***************** TRYNIMAS VEIKIA*******************';
+		return $this->saveFileData($data);
+		
+		
+		die( '**********delete veikia **************' . __FILE__ . ' ' . __LINE__ );
 		
 		$json = $this->Http->get('http://example.com/api/remove.json', array(
             'id' => $id[$model->alias . '.id'],
