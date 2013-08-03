@@ -1,7 +1,7 @@
 <?php
 	
 class Post extends AppModel {
-     public $useDbConfig = 'faraway';
+     //public $useDbConfig = 'faraway';
 	
 	public $validate = array(
         'title' => array(
@@ -37,6 +37,7 @@ class Post extends AppModel {
 		return file_put_contents($this->getFileName(), serialize($data));	
 	}
 	
+	/*
 	public function create() {        
 		$aItem = array_combine ($fields, $values);
 		$aItem['id'] = crc32(implode($values, ''));		
@@ -44,6 +45,8 @@ class Post extends AppModel {
 		$data[] = array('Post'=> $aItem);
 		return $this->saveFileData($data);
     }
+	 * 
+	 */
 	
 	
 }

@@ -23,10 +23,10 @@ class FarAwaySource extends DataSource {
  */
     protected $_schema = array(
         'id' => array(
-            'type' => 'integer',
+            'type' => 'string',
             'null' => false,
             'key' => 'primary',
-            'length' => 11,
+            'length' => 255,
         ),
         'name' => array(
             'type' => 'string',
@@ -143,10 +143,25 @@ class FarAwaySource extends DataSource {
  * set arrive here.
  */
     public function create(Model $model, $fields = null, $values = null) {        
+	 
 		$aItem = array_combine ($fields, $values);
-		$aItem['id'] = crc32(implode($values, ''));		
 		$data = $this->getFileData();
-		$data[] = array('Post'=> $aItem);
+		
+		if (!empty($aItem['id'])) {
+			
+			foreach ( $data as &$entry ) {
+				
+				if($entry['Post']['id'] ==  $aItem['id']) {
+					$entry['Post'] = array_merge($entry['Post'], $aItem);
+					break;
+				}
+			}
+			
+		} else {			
+			$aItem['id'] = md5(implode($values, ''));	
+			$data[] = array('Post'=> $aItem);			
+		}
+				
 		return $this->saveFileData($data);
     }
 	
@@ -172,8 +187,11 @@ class FarAwaySource extends DataSource {
  * set arrive here. Depending on the remote source you can just call
  * ``$this->create()``.
  */
-    public function update(Model $model, $fields = null, $values = null, $conditions = null) {
-        return $this->create($model, $fields, $values);
+    public function update(Model $model, $fields = null, $values = null, $conditions = null) {	
+		
+		$fields[] = 'id';
+		$values[] = $model->id;
+		return $this->create($model, $fields, $values);
     }
 
 /**
@@ -207,6 +225,23 @@ class FarAwaySource extends DataSource {
         }
         return true;
     }
-
+	
+	public function query($method, $data, $model )
+	{
+		switch ($method) {
+			case 'findById':
+				$id = reset($data);						
+				if ($id) {
+					$data = $this->getFileData();
+					foreach ( $data as $entry ) {						
+						if($entry['Post']['id'] ==  $id) {
+							return $entry;
+							break;
+						}
+					}
+				}
+			break;
+		}
+	}
 }
 ?>
