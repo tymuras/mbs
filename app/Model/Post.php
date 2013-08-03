@@ -1,7 +1,7 @@
 <?php
 	
 class Post extends AppModel {
-     //public $useDbConfig = 'faraway';
+     public $useDbConfig = 'faraway';
 	
 	public $validate = array(
         'title' => array(

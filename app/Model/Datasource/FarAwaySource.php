@@ -143,7 +143,6 @@ class FarAwaySource extends DataSource {
  * set arrive here.
  */
     public function create(Model $model, $fields = null, $values = null) {        
-	 
 		$aItem = array_combine ($fields, $values);
 		$data = $this->getFileData();
 		
@@ -158,10 +157,11 @@ class FarAwaySource extends DataSource {
 			}
 			
 		} else {			
-			$aItem['id'] = md5(implode($values, ''));	
+			$aItem['id'] = md5(json_encode($values));				
+			$aItem['atime'] = date( 'Y-m-d H:i:s' );
 			$data[] = array('Post'=> $aItem);			
 		}
-				
+		
 		return $this->saveFileData($data);
     }
 	

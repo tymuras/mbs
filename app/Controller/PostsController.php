@@ -196,7 +196,6 @@ die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
 		$post = $this->Post->findById($id);
 		
 		
-		
 		if (!$post) {
 			throw new NotFoundException(__('Sistemine klaida'));
 		}

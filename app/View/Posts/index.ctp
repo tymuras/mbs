@@ -30,8 +30,8 @@ var index_url = "<?php echo $this->Html->url(array( 'controller' => 'Posts',  'a
 		
 		<td>
             <?php 
-				$category_ids = explode(',', $post['Post']['categories']); 
-				if (is_array($category_ids) && !empty($category_ids)) {
+			$category_ids = $post['Post']['categories']; 
+				if (!empty($post['Post']['categories'])) {
 					foreach ( $category_ids as $id) {
 						echo  $categories[$id];
 						echo '&nbsp;';
