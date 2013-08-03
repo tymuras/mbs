@@ -27,10 +27,13 @@ class Post extends AppModel {
 		return $this->_sorting;
 	}
 	
+	/*
 	public function delete($id = NULL, $cascade = true )
 	{
 		parent::delete();
 	}
+	 * 
+	 */
 	
 	public function saveFileData( $data )
 	{

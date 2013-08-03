@@ -199,7 +199,8 @@ class FarAwaySource extends DataSource {
  */
     public function delete(Model $model, $id = null) {
 		
-	 	$data = $this->getFileData();
+		
+		$data = $this->getFileData();
 		foreach ( $data as $nr => $item ) {
 			echo $item['Post']['id'].' -> '.var_export($id, true); echo '<hr>';
 			

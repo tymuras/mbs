@@ -216,8 +216,11 @@ die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
 	}
 	public function delete($id) {
 		
+		/*
 		$categories = ClassRegistry::init('FarAwaySource');
 		$x = new FarAwaySource();
+		 * 
+		 */
 		
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
