@@ -2,7 +2,7 @@
 
 class Post extends AppModel {
 
-	public $useDbConfig = 'faraway';
+	public $useDbConfig = 'SubscribersFileSource';
 	public $validate = array(
 		'title' => array(
 			'rule' => 'notEmpty'
