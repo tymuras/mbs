@@ -4,10 +4,10 @@ class Subscriber  extends AppModel {
 
 	public $useDbConfig = 'SubscribersFileSource';
 	public $validate = array(
-		'title' => array(
+		'name' => array(
 			'rule' => 'notEmpty'
 		),
-		'body' => array(
+		'mail' => array(
 			'rule' => array( 'notEmpty', 'email' )
 		),
 		'categories' => array(
@@ -36,8 +36,8 @@ class Subscriber  extends AppModel {
 
 	function cmpByName( $a, $b )
 	{
-		$a_letter = strtolower( $a['Post']['name'][0] );
-		$b_letter = strtolower( $b['Post']['name'][0] );
+		$a_letter = strtolower( $a[$this->alias]['name'][0] );
+		$b_letter = strtolower( $b[$this->alias]['name'][0] );
 		if ( $a_letter == $b_letter ) {
 			return 0;
 		}
@@ -46,8 +46,8 @@ class Subscriber  extends AppModel {
 
 	function cmpByMail( $a, $b )
 	{
-		$a_letter = strtolower( $a['Post']['mail'][0] );
-		$b_letter = strtolower( $b['Post']['mail'][0] );
+		$a_letter = strtolower( $a[$this->alias]['mail'][0] );
+		$b_letter = strtolower( $b[$this->alias]['mail'][0] );
 		if ( $a_letter == $b_letter ) {
 			return 0;
 		}
@@ -56,9 +56,9 @@ class Subscriber  extends AppModel {
 
 	function cmpByDate( $a, $b )
 	{
-		if ( $a['Post']['atime'] == $b['Post']['atime'] ) {
+		if ( $a[$this->alias]['atime'] == $b[$this->alias]['atime'] ) {
 			return 0;
 		}
-		return ($a['Post']['atime'] < $b['Post']['atime']) ? -1 : 1;
+		return ($a[$this->alias]['atime'] < $b[$this->alias]['atime']) ? -1 : 1;
 	}
 }

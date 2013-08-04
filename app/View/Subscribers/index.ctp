@@ -1,6 +1,5 @@
-<!-- File: /app/View/Posts/index.ctp -->
 <script type="text/javascript">
-var index_url = "<?php echo $this->Html->url(array( 'controller' => 'Posts',  'action' => 'index')); ?>";
+var index_url = "<?php echo $this->Html->url(array( 'controller' => 'Subscribers',  'action' => 'index')); ?>";
 </script>
 <h1>List of subscribers</h1>
 <br />
@@ -15,9 +14,6 @@ var index_url = "<?php echo $this->Html->url(array( 'controller' => 'Posts',  'a
         <th>Actions</th>
         <th>Created</th>
     </tr>
-
-<!-- Here's where we loop through our $posts array, printing out post info -->
-
     <?php foreach ($posts as $post): ?>
     <tr>
         <td>

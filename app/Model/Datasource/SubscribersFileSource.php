@@ -35,8 +35,6 @@ class SubscribersFileSource extends DataSource {
 
     public function __construct($config) {
         
-		echo '<h1>'.__FUNCTION__.'<h1>';
-		
 		parent::__construct($config);     
     }
 	
@@ -57,8 +55,7 @@ class SubscribersFileSource extends DataSource {
         return 'COUNT';
     }
 
-    public function read(Model $model, $queryData = array(), $recursive = null) {
-		echo '<h1>'.__FUNCTION__.'<h1>';
+    public function read(Model $model, $queryData = array(), $recursive = null) {		
 		
 		if ($queryData['fields'] === 'COUNT') {
             return array(array(array('count' => 1)));
@@ -110,20 +107,12 @@ class SubscribersFileSource extends DataSource {
 	}
 
     public function update(Model $model, $fields = null, $values = null, $conditions = null) {	
-		
-		echo '<h1>'.__FUNCTION__.'<h1>';
-		
-		
 		$fields[] = 'id';
 		$values[] = $model->id;
 		return $this->create($model, $fields, $values);
     }
 
-    public function delete(Model $model, $id = null) {		
-		
-		echo '<h1>'.__FUNCTION__.'<h1>';
-		
-		
+    public function delete(Model $model, $id = null) {			
 		$data = $this->getFileData();
 		foreach ( $data as $nr => $item ) {
 			echo $item[$model->alias]['id'].' -> '.var_export($id, true); echo '<hr>';
@@ -138,8 +127,6 @@ class SubscribersFileSource extends DataSource {
 	
 	public function query($method, $data, $model )
 	{
-		echo '<h1>'.__FUNCTION__.'<h1>';
-		
 		switch ($method) {
 			case 'findById':
 				$id = reset($data);							
