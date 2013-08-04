@@ -21,17 +21,17 @@ var index_url = "<?php echo $this->Html->url(array( 'controller' => 'Posts',  'a
     <?php foreach ($posts as $post): ?>
     <tr>
         <td>
-            <?php echo $post['Post']['name']; ?>
+            <?php echo $post['Subscriber']['name']; ?>
         </td>
 		
 		<td>
-            <?php echo $post['Post']['mail']; ?>
+            <?php echo $post['Subscriber']['mail']; ?>
         </td>
 		
 		<td>
             <?php 
-			$category_ids = $post['Post']['categories']; 
-				if (!empty($post['Post']['categories'])) {
+			$category_ids = $post['Subscriber']['categories']; 
+				if (!empty($post['Subscriber']['categories'])) {
 					foreach ( $category_ids as $id) {
 						echo  $categories[$id];
 						echo '&nbsp;';
@@ -43,13 +43,13 @@ var index_url = "<?php echo $this->Html->url(array( 'controller' => 'Posts',  'a
         <td>
             <?php echo $this->Form->postLink(
                 'Delete',
-                array('action' => 'delete', $post['Post']['id']),
+                array('action' => 'delete', $post['Subscriber']['id']),
                 array('confirm' => 'Are you sure?'));
             ?>
-            <?php echo $this->Html->link('Edit', array('action' => 'edit', $post['Post']['id'])); ?>
+            <?php echo $this->Html->link('Edit', array('action' => 'edit', $post['Subscriber']['id'])); ?>
         </td>
         <td>
-            <?php echo $post['Post']['atime']; ?>
+            <?php echo $post['Subscriber']['atime']; ?>
         </td>
     </tr>
     <?php endforeach; ?>

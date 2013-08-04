@@ -34,7 +34,10 @@ class SubscribersFileSource extends DataSource {
     );
 
     public function __construct($config) {
-        parent::__construct($config);     
+        
+		echo '<h1>'.__FUNCTION__.'<h1>';
+		
+		parent::__construct($config);     
     }
 	
 	public function getFileName()
@@ -55,6 +58,8 @@ class SubscribersFileSource extends DataSource {
     }
 
     public function read(Model $model, $queryData = array(), $recursive = null) {
+		echo '<h1>'.__FUNCTION__.'<h1>';
+		
 		if ($queryData['fields'] === 'COUNT') {
             return array(array(array('count' => 1)));
         }
@@ -62,15 +67,18 @@ class SubscribersFileSource extends DataSource {
 	 }
 
 	 public function create(Model $model, $fields = null, $values = null) {        
-		$aItem = array_combine ($fields, $values);
+		
+		 $aItem = array_combine ($fields, $values);
+		
+		
 		$data = $this->getFileData();
 		
 		if (!empty($aItem['id'])) {
 			
 			foreach ( $data as &$entry ) {
 				
-				if($entry['Post']['id'] ==  $aItem['id']) {
-					$entry['Post'] = array_merge($entry['Post'], $aItem);
+				if($entry[$model->alias]['id'] ==  $aItem['id']) {
+					$entry[$model->alias] = array_merge($entry[$model->alias], $aItem);
 					break;
 				}
 			}
@@ -78,7 +86,7 @@ class SubscribersFileSource extends DataSource {
 		} else {			
 			$aItem['id'] = md5(json_encode($values));				
 			$aItem['atime'] = date( 'Y-m-d H:i:s' );
-			$data[] = array('Post'=> $aItem);			
+			$data[] = array($model->alias => $aItem);			
 		}
 		
 		return $this->saveFileData($data);
@@ -103,6 +111,9 @@ class SubscribersFileSource extends DataSource {
 
     public function update(Model $model, $fields = null, $values = null, $conditions = null) {	
 		
+		echo '<h1>'.__FUNCTION__.'<h1>';
+		
+		
 		$fields[] = 'id';
 		$values[] = $model->id;
 		return $this->create($model, $fields, $values);
@@ -110,11 +121,14 @@ class SubscribersFileSource extends DataSource {
 
     public function delete(Model $model, $id = null) {		
 		
+		echo '<h1>'.__FUNCTION__.'<h1>';
+		
+		
 		$data = $this->getFileData();
 		foreach ( $data as $nr => $item ) {
-			echo $item['Post']['id'].' -> '.var_export($id, true); echo '<hr>';
+			echo $item[$model->alias]['id'].' -> '.var_export($id, true); echo '<hr>';
 			
-			if($item['Post']['id'] == $id[$model->alias.'.id']) {
+			if($item[$model->alias]['id'] == $id[$model->alias.'.id']) {
 				unset($data[$nr]);				
 				break;
 			}
@@ -124,13 +138,15 @@ class SubscribersFileSource extends DataSource {
 	
 	public function query($method, $data, $model )
 	{
+		echo '<h1>'.__FUNCTION__.'<h1>';
+		
 		switch ($method) {
 			case 'findById':
-				$id = reset($data);						
+				$id = reset($data);							
 				if ($id) {
 					$data = $this->getFileData();
-					foreach ( $data as $entry ) {						
-						if($entry['Post']['id'] ==  $id) {
+					foreach ( $data as $entry ) {
+						if($entry[$model->alias]['id'] ==  $id) {							
 							return $entry;
 							break;
 						}

@@ -1,6 +1,6 @@
 <?php
 
-class Post extends AppModel {
+class Subscriber  extends AppModel {
 
 	public $useDbConfig = 'SubscribersFileSource';
 	public $validate = array(
