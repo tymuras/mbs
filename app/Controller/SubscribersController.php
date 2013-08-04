@@ -33,7 +33,7 @@ class SubscribersController extends AppController {
 				$this->Session->setFlash( __( 'The subscriber has been saved.' ) );
 				$this->redirect( array( 'action' => 'index' ) );
 			} else {
-				$this->Session->setFlash( __( 'Unable to add the subscriber.' ) );
+				$this->Session->setFlash( __( 'Fill all fields!' ) );
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 <?php
 $config = array (
-  'debug' => 2,
+  'debug' => 0,
   'App' => 
   array (
     'base' => false,
