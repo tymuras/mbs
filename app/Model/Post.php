@@ -1,55 +1,64 @@
 <?php
-	
+
 class Post extends AppModel {
-     public $useDbConfig = 'faraway';
-	
+
+	public $useDbConfig = 'faraway';
 	public $validate = array(
-        'title' => array(
-            'rule' => 'notEmpty'
-        ),
-        'body' => array(
-            'rule' => array('notEmpty', 'email')
-        ),
+		'title' => array(
+			'rule' => 'notEmpty'
+		),
+		'body' => array(
+			'rule' => array( 'notEmpty', 'email' )
+		),
 		'categories' => array(
-              'rule' => array('multiple', array('min' => 1)), 
+			'rule' => array( 'multiple', array( 'min' => 1 ) ),
 			'allowEmpty' => false
-        ),
-    );
-	
-	private $_sorting = array(
-		'mail'=> 'By email',
-		'name'=> 'By email',
-		'date'=> 'By Date'	
+		),
 	);
-	
+	private $_sort_types = array(
+		'mail' => 'By email',
+		'name' => 'By name',
+		'date' => 'By date'
+	);
+
 	public function getSortingModes()
 	{
-		return $this->_sorting;
+		return $this->_sort_types;
 	}
-	
-	/*
-	public function delete($id = NULL, $cascade = true )
+
+	public function sort( $items, $sort_type = null )
+	{		
+		if ( !is_null( $sort_type ) && in_array( $sort_type, array_keys( $this->_sort_types ) ) ) {
+			usort( $items, array( $this, "cmpBy" . ucfirst( $sort_type ) ) );
+		}
+		return $items;
+	}
+
+	function cmpByName( $a, $b )
 	{
-		parent::delete();
+		$a_letter = strtolower( $a['Post']['name'][0] );
+		$b_letter = strtolower( $b['Post']['name'][0] );
+		if ( $a_letter == $b_letter ) {
+			return 0;
+		}
+		return ($a_letter < $b_letter) ? -1 : 1;
 	}
-	 * 
-	 */
-	
-	public function saveFileData( $data )
+
+	function cmpByMail( $a, $b )
 	{
-		return file_put_contents($this->getFileName(), serialize($data));	
+		$a_letter = strtolower( $a['Post']['mail'][0] );
+		$b_letter = strtolower( $b['Post']['mail'][0] );
+		if ( $a_letter == $b_letter ) {
+			return 0;
+		}
+		return ($a_letter < $b_letter) ? -1 : 1;
 	}
-	
-	/*
-	public function create() {        
-		$aItem = array_combine ($fields, $values);
-		$aItem['id'] = crc32(implode($values, ''));		
-		$data = $this->getFileData();
-		$data[] = array('Post'=> $aItem);
-		return $this->saveFileData($data);
-    }
-	 * 
-	 */
-	
-	
+
+	function cmpByDate( $a, $b )
+	{
+		if ( $a['Post']['atime'] == $b['Post']['atime'] ) {
+			return 0;
+		}
+		return ($a['Post']['atime'] < $b['Post']['atime']) ? -1 : 1;
+	}
 }

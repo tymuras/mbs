@@ -150,7 +150,11 @@ die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
 		
 		$categories = ClassRegistry::init('Category')->getList( 'element_format') ;
 		$this->set('categories', $categories);		
-		$this->set('posts', $this->Post->find('all'));
+		
+		$subscribers = $this->Post->find('all');
+		$subscribers = $this->Post->sort($subscribers, $sort_mode);
+		
+		$this->set('posts', $subscribers);
 		$this->set('sorting', $this->Post->getSortingModes());
 		$this->set('active_sorting_mode', $sort_mode);
 		$categories = ClassRegistry::init('Category')->getList();		
