@@ -1,5 +1,4 @@
 <?php
-
 class Category extends AppModel {
      public $useTable = false; 
 	 
@@ -16,7 +15,6 @@ class Category extends AppModel {
 		  }
 		  		   		  
 		return $categories;  
-	 }
-	 	 
+	 }	 	 
 }
 ?>

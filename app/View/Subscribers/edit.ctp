@@ -1,5 +1,3 @@
-<!-- File: /app/View/Posts/edit.ctp -->
-
 <h1>Edit subscriber</h1>
 <?php
     echo $this->Form->create('Subscriber');

@@ -33,14 +33,14 @@ class SubscribersFileSource extends DataSource {
 		
     );
 
-    public function __construct($config) {
-        
-		parent::__construct($config);     
+    public function __construct($config) 
+	{
+		 parent::__construct($config);     
     }
 	
 	public function getFileName()
 	{
-		return $this->_storage_file;
+		return ROOT.DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.$this->_storage_file;
 	}
 
     public function listSources($data = null) {

@@ -35,23 +35,13 @@ class Subscriber  extends AppModel {
 	}
 
 	function cmpByName( $a, $b )
-	{
-		$a_letter = strtolower( $a[$this->alias]['name'][0] );
-		$b_letter = strtolower( $b[$this->alias]['name'][0] );
-		if ( $a_letter == $b_letter ) {
-			return 0;
-		}
-		return ($a_letter < $b_letter) ? -1 : 1;
+	{		
+		return (strcasecmp($a[$this->alias]['name'], $b[$this->alias]['name']));
 	}
 
 	function cmpByMail( $a, $b )
 	{
-		$a_letter = strtolower( $a[$this->alias]['mail'][0] );
-		$b_letter = strtolower( $b[$this->alias]['mail'][0] );
-		if ( $a_letter == $b_letter ) {
-			return 0;
-		}
-		return ($a_letter < $b_letter) ? -1 : 1;
+		return (strcasecmp($a[$this->alias]['mail'], $b[$this->alias]['mail']));
 	}
 
 	function cmpByDate( $a, $b )
