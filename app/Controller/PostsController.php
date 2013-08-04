@@ -158,12 +158,12 @@ die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
 
     public function view($id) {
         if (!$id) {
-            throw new NotFoundException(__('Sistemine klaida'));
+            throw new NotFoundException(__('System error'));
         }
 
         $post = $this->Post->findById($id);
         if (!$post) {
-            throw new NotFoundException(__('Sistemine klaida'));
+            throw new NotFoundException(__('System error'));
         }
         $this->set('post', $post);
     }
@@ -176,10 +176,10 @@ die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
 		if ($this->request->is('post')) {
             $this->Post->create();
             if ($this->Post->save($this->request->data)) {
-                $this->Session->setFlash(__('Your post has been saved.'));
+                $this->Session->setFlash(__('The subscriber has been saved.'));
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('Unable to add your post.'));
+                $this->Session->setFlash(__('Unable to add the subscriber.'));
             }
         }
     }
@@ -190,20 +190,20 @@ die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
 		$this->set('categories',$categories );				
 		
 		if (!$id) {
-			throw new NotFoundException(__('Sistemine klaida'));
+			throw new NotFoundException(__('System error'));
 		}
 
 		$post = $this->Post->findById($id);
 		
 		
 		if (!$post) {
-			throw new NotFoundException(__('Sistemine klaida'));
+			throw new NotFoundException(__('System error'));
 		}
 
 		if ($this->request->is('post') || $this->request->is('put')) {
 			$this->Post->id = $id;
 			if ($this->Post->save($this->request->data)) {
-				$this->Session->setFlash(__('Duomenys atnaujinti.'));
+				$this->Session->setFlash(__('The subscriber has been edited.'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('Fill all fields!'));
@@ -215,20 +215,14 @@ die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
 		}
 	}
 	public function delete($id) {
-		
-		/*
-		$categories = ClassRegistry::init('FarAwaySource');
-		$x = new FarAwaySource();
-		 * 
-		 */
-		
+				
 		if ($this->request->is('get')) {
 			throw new MethodNotAllowedException();
 		}
 
 		if ($this->Post->delete($id)) {
 			
-			$this->Session->setFlash(__('The post with id: %s has been deleted.', $id));
+			$this->Session->setFlash(__('The subscriber with id: %s has been deleted.', $id));
 			$this->redirect(array('action' => 'index'));
 		}else
 		{
