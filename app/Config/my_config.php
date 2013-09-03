@@ -1,13 +1,13 @@
 <?php
 $config = array (
-  'debug' => 0,
+  'debug' => 2,
   'App' => 
   array (
     'base' => false,
     'baseUrl' => false,
     'dir' => 'app',
     'webroot' => 'webroot',
-    'www_root' => 'M:\\xampp\\htdocs\\mbs\\app\\webroot\\',
+    'www_root' => 'M:\\xampp\\htdocs\\subscribers\\app\\webroot\\',
     'encoding' => 'UTF-8',
   ),
   'Error' => 

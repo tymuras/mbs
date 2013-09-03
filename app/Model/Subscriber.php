@@ -3,6 +3,7 @@
 class Subscriber  extends AppModel {
 
 	public $useDbConfig = 'SubscribersFileSource';
+	
 	public $validate = array(
 		'name' => array(
 			'rule' => 'notEmpty'

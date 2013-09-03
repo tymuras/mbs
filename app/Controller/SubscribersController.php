@@ -4,8 +4,28 @@ class SubscribersController extends AppController {
 
 	public $helpers = array( 'Html', 'Form', 'Session' );
 	public $components = array( 'Session' );
-	public $uses = array( );
+	public $uses = array('Factory');
 
+	public function test()
+	{
+		$this->autoRender = false;				
+		App::uses('Factory', 'Model');		
+		$oItem = Factory::getOrder(100);
+		
+		echo '<pre>';
+		var_export($oItem );
+		echo '</pre>';
+		die( 'Stoped ' . __FILE__ . ' ' . __LINE__ );
+		
+		/*
+		echo '<pre>';
+		var_export( $oItem);
+		echo '</pre>';
+		*/
+		
+	}
+	
+	
 	public function index( $sort_mode = '' )
 	{
 		$categories = ClassRegistry::init( 'Category' )->getList( 'element_format' );
